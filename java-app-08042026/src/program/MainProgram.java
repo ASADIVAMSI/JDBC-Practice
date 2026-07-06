@@ -1,3 +1,12 @@
+              ==================================
+ 
+		            JDBC - CURD OPERTIONS
+		       
+		      ==================================
+
+			             -: CREATION :-
+
+
 package program;
 
 import java.sql.Connection;
@@ -25,7 +34,6 @@ public class MainProgram {
 			
 			//Step 4: Write SQL Query
 			String sqlQuery ="""
-					
 					CREATE TABLE employees_list (
 						emp_id INT PRIMARY KEY AUTO_INCREMENT,
 						first_name CHAR(10),
@@ -33,8 +41,20 @@ public class MainProgram {
 						email_address CHAR(15),
 						login_password CHAR(15)
 						);
-						
 						""";
+
+						(OR)
+			String sqlQueary = "CREATE TABLE employees_list (emp_id INT PRIMARY KEY AUTO_INCREMENT,first_name CHAR(50),last_name CHAR(50),email_address CHAR(100),login_password CHAR(10)  );";
+
+			            (OR)
+			String sqlQuery ="CREATE TABLE employees ( "
+					+ "	   emp_id INT PRIMARY KEY AUTO_INCREMENT,"
+					+ "    first_name CHAR(50),"
+					+ "    last_name CHAR(50),"
+					+ "    email_address CHAR(100),"
+					+ "    login_password CHAR(10)"
+					+ "  ) " ;
+
 			
 			//Step 5: Execute Query
 			dbStmt.executeUpdate(sqlQuery);
