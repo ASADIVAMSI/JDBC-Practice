@@ -1,3 +1,12 @@
+/*
+====================================
+
+            JDBC
+           UPDATE 
+	 (Multiple Records)
+
+====================================
+*/
 package program;
 
 import java.sql.Connection;
@@ -17,7 +26,7 @@ public class MainProgram2 {
 			dbStmt = dbConn.createStatement();
 
 			
-			String sqlQuery = "UPDATE employee SET firstName = 'Kumar' WHERE empId = 103"; 
+			String sqlQuery = "UPDATE employees_list SET firstName = 'Kumar' WHERE empId = 103"; 
 			int numRowsAffeted = dbStmt.executeUpdate(sqlQuery);
 			
 			if(numRowsAffeted != 0) {
@@ -57,40 +66,9 @@ public class MainProgram2 {
 				sqlEx.printStackTrace();
 			}
 		}
+		
+		
+		
 	}
 
 }
-
-
-/*
-
-
-Connection dbConn = null;
-PreparedStatement dbPs = null;
-
-try {
-    Class.forName("com.mysql.cj.jdbc.Driver");
-
-    dbConn = DriverManager.getConnection(
-        "jdbc:mysql://localhost:3306/jfs_049",
-        "root",
-        "root"
-    );
-
-    String sqlQuery1 = "INSERT INTO employee VALUES (?, ?, ?)";
-
-    dbPs = dbConn.prepareStatement(sqlQuery1);
-
-    dbPs.setInt(1, 105);
-    dbPs.setString(2, "Ram");
-    dbPs.setString(3, "Krishna");
-
-    int result = dbPs.executeUpdate();
-
-    System.out.println(result + " record inserted");
-
-} catch (Exception e) {
-    e.printStackTrace();
-}
-
-*/
