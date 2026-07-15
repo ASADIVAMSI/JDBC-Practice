@@ -1,46 +1,63 @@
-package program;
+/*
+	====================================
+	
+	            JDBC
+	
+	      UPDATE - Dynamic Values
+	      
+	 (PrepareStatement-Same Query Multiple Times)
+	
+	====================================
+*/
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Scanner;
 
 public class MainProgram4 {
 	public static void main(String[] args) {
 		
+		Scanner scn = new Scanner(System.in);
+		
 		Connection dbConn = null;
-		Statement dbStmt = null;
-		ResultSet dbRs = null;
+		PreparedStatement dbPreStmt = null;
 		
 		try {
+			// Step 1: Load Driver (optional in newer JDBC versions)
 			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// Step 2: Create Connection
 			dbConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jfs_049","root","root");
-			dbStmt = dbConn.createStatement();
-
-			String sqlQuery1 = "INSERT INTO employee VALUES (105,'Ram','Krishna')"; 
-			dbStmt.executeUpdate(sqlQuery1);
 			
-			String sqlQuery2 = "UPDATE employee SET firstName = 'Kumar' WHERE empId = 103"; 
-			dbStmt.executeUpdate(sqlQuery2);
+			// Step 3: SQL Query
+			String sqlQuery ="UPDATE employees_list SET first_name = ? where id = ? ";
 			
-			String sqlQuery3 = "DELETE FROM employee WHERE empId = 103"; 
-			dbStmt.executeUpdate(sqlQuery3);
+			// Step 4: Create PreparedStatement
+			dbPreStmt = dbConn.prepareStatement(sqlQuery);
 			
-			String sqlQuery4 = "SELECT * FROM employee"; 
-			dbRs=dbStmt.executeQuery(sqlQuery4);
+			//Dynamic Values
+			System.out.print("Enter First Name: ");
+			String firstName = scn.nextLine();
+			 
+			System.out.print("Enter EmployeeID: ");
+			int EmployeeID = scn.nextInt();
+			 
+			 
 			
-			while(dbRs.next()) {
-				
-					int empId = dbRs.getInt(1);
-					String firstName = dbRs.getString(2);
-					String lastName  = dbRs.getString(3);
-					
-					System.out.println("Employee Id: "+empId);
-					System.out.println("First Name : "+firstName);
-					System.out.println("Last Name : "+lastName);
-					System.out.println();
+			// Step 5: Set Values
+			dbPreStmt.setString(1,firstName);
+			dbPreStmt.setInt(2,EmployeeID);
+			
+			int noOfRowsAff = dbPreStmt.executeUpdate();
+			
+			if(noOfRowsAff != 0) {
+				System.out.println("Record Updated.");
+			}else {
+				System.out.println("Not Updated.");
 			}
+			
 			
 		}catch(ClassNotFoundException cnfEx) {
 			cnfEx.printStackTrace();
@@ -49,8 +66,8 @@ public class MainProgram4 {
 		}finally {
 			
 			try {
-				if(dbStmt !=null) {
-					dbStmt.close();
+				if(dbPreStmt !=null) {
+					dbPreStmt.close();
 					
 				}
 				if(dbConn !=null) {
@@ -61,7 +78,6 @@ public class MainProgram4 {
 			}catch(SQLException sqlEx) {
 				sqlEx.printStackTrace();
 			}
-		}
+		}		
 	}
-
 }
