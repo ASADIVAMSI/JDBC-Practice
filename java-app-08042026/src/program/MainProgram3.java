@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class MainProgram4 {
+public class MainProgram3 {
 	public static void main(String[] args) {
 		
 		Scanner scn = new Scanner(System.in);
