@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class MainProgram3 {
+public class MainProgram2 {
 	
 	public static void main(String[] args) {
 		
