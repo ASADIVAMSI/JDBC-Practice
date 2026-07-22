@@ -16,7 +16,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MainProgram3 {
+public class MainProgram1 {
 	public static void main(String[] args) {
 		
 		Connection dbConn = null;
